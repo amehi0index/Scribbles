@@ -52,8 +52,8 @@ const Base = () => {
 
 
     return (
-        <div className="h-screen w-screen flex  justify-between flex-col bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#23486F] via-[#192532] to-[#10131C] px-14 ">
-            <div className="pt-16">
+        <div className="h-screen w-screen flex justify-between flex-col bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#23486F] via-[#192532] to-[#10131C] px-14 ">
+            <div className="pt-24">
                 <Header />
 
                 <form onSubmit={handleSubmit} className="w-1/2 flex flex-row py-8 ml-16 mt-6">
