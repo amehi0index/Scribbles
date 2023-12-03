@@ -52,7 +52,7 @@ const Base = () => {
 
 
     return (
-        <div className="h-screen w-screen flex  justify-between flex-col bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#23486F] via-[#192532] to-[#10131C]">
+        <div className="h-screen w-screen flex  justify-between flex-col bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#23486F] via-[#192532] to-[#10131C] px-14 ">
             <div className="pt-16">
                 <Header />
 
