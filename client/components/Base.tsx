@@ -8,6 +8,7 @@ const Base = () => {
 
     const [message, setMessage] = useState<string>('');
     const [email, setEmail] = useState<string>('');
+    const [showSuccess, setShowSuccess] = useState<boolean>(false);
 
     // useEffect(()=> {
     //     fetch("http://localhost:5000/api/home").then(
@@ -19,6 +20,16 @@ const Base = () => {
     //     )
     // },[])
 
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+        if (showSuccess) {
+            timer = setTimeout(() => {
+                setShowSuccess(false);
+            }, 5000); 
+        }
+        return () => clearTimeout(timer); 
+    }, [showSuccess]);
+
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value);
     }
@@ -26,7 +37,7 @@ const Base = () => {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>)  => {
         e.preventDefault();
         await sendEmailToBackend(email);
-        console.log('I submitted! Go me')
+        setEmail('')
     };
 
     const sendEmailToBackend = async (email: string): Promise<void> => {
@@ -44,7 +55,8 @@ const Base = () => {
             }
     
             const data = await response.json();
-            console.log('Success:', data);
+            setShowSuccess(true);
+            setMessage(data.message)
         } catch (error) {
             console.error('Error:', error);
         }
@@ -53,15 +65,16 @@ const Base = () => {
 
     return (
         <div className="h-screen w-screen flex justify-between flex-col bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#23486F] via-[#192532] to-[#10131C] px-14 ">
-            <div className="pt-24">
+            <div className="pt-24 w-full">
                 <Header />
 
-                <form onSubmit={handleSubmit} className="w-1/2 flex flex-row py-8 ml-16 mt-6">
-                    <Input onChange={onChange} name="email" placeholder="Email" />
+                <form onSubmit={handleSubmit} className="lg:w-1/2 sm:w-full flex flex-row py-8 lg:ml-16  ml-0 sm:mt-6">
+                    <Input onChange={onChange} name="email" placeholder="Email" value={email}/>
                     <button dir="rtl" type="submit" className="text-white bg-slate-800 hover:bg-slate-700 duration-300 p-3 rounded-s-lg w-1/5">Join</button>
                 </form>
 
-                <h1 className="text-purple-700 ml-16">{message}</h1>
+                {showSuccess && <h1 className="text-purple-700 ml-16">{message}</h1>}
+
             </div>
 
             <Footer/>

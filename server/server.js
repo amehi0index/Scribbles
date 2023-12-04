@@ -14,7 +14,7 @@ app.post('/api/sendemail', (req, res) => {
     const { email } = req.body;
     console.log('Received email:', email);
 
-    res.status(200).json({ message: 'Thanks! We got your little email' });
+    res.status(200).json({ message: 'Thanks! We got your little email.' });
 });
 
 app.listen(PORT, ()=>{ console.log(`Running on port ${PORT}`)})
