@@ -16,7 +16,11 @@
 ---
 
 ## Description
-Scribbles is a full-stack web application designed to provide a seamless and interactive experience for users. This project is structured with a client-server architecture, where the client side is built using modern web technologies and the server side manages data and interactions.
+Scribbles is a modern, full-stack web application designed to provide a seamless and interactive experience for users, specifically focusing on streamlining the process for email subscription. 
+
+This project is structured with a client-server architecture, where the client side is crafted using modern web technologies to offer a user-friendly interface. 
+
+Visitors can easily subscribe to our newsletter through this intuitive platform. On the server side, Scribbles efficiently manages data and interactions, ensuring a smooth and responsive experience for managing and storing subscriber information. 
 
 ## Features
 - **Interactive UI**: The client side, built with React and Next.js, offers a dynamic and responsive user interface.
