@@ -1,38 +1,24 @@
 require('dotenv').config();
-// const { Pool } = require('pg');
+// const { Client } = require('pg');
 
-// let dbConfig;
+// const client = new Client({
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     port: process.env.DB_PORT,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_DATABASE
+// });
 
-// if (process.env.NODE_ENV === "production") {
-//     // On Heroku, use the DATABASE_URL environment variable
-//     dbConfig = {
-//         connectionString: process.env.DATABASE_URL,
-//         ssl: {
-//             rejectUnauthorized: false // Required for Heroku's self-signed certificate
-//         }
-//     };
-// } else {
-//     // In development, use local environment variables
-//     dbConfig = {
-//         host: process.env.DB_HOST,
-//         user: process.env.DB_USER,
-//         port: process.env.DB_PORT,
-//         password: process.env.DB_PASSWORD,
-//         database: process.env.DB_DATABASE
-//     };
-// }
+// module.exports = client;
 
-const client = new Pool(dbConfig);
 
 const { Pool } = require('pg');
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: {
-        rejectUnauthorized: false // Required for Heroku's self-signed certificate
+        rejectUnauthorized: false
     }
 });
 
 module.exports = pool;
-
-module.exports = client;
