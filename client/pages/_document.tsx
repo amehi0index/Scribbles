@@ -5,7 +5,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://scribbles-dac22275e7f8.herokuapp.com; script-src 'self' https://scribbles-dac22275e7f8.herokuapp.com;"></meta>
+          {/* <meta httpEquiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://scribbles-dac22275e7f8.herokuapp.com; script-src 'self' https://scribbles-dac22275e7f8.herokuapp.com;"></meta> */}
         </Head>
         <body>
           <Main />
@@ -15,5 +15,7 @@ class MyDocument extends Document {
     );
   }
 }
+
+
 
 export default MyDocument;
