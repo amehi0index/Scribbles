@@ -20,6 +20,11 @@ const Base = () => {
     //     )
     // },[])
 
+     // Define the API base URL
+     const apiBaseUrl = process.env.NODE_ENV === 'development' 
+     ? 'http://localhost:5000' 
+     : 'https://scribbles-dac22275e7f8.herokuapp.com';
+
     useEffect(() => {
         let timer: NodeJS.Timeout;
         if (showSuccess) {
@@ -42,7 +47,7 @@ const Base = () => {
 
     const createNewEmailSubscriber = async (email: string): Promise<void> => {
         try {
-            const response = await fetch('http://localhost:5000/api/email-subscribers/new', {
+            const response = await fetch(`${apiBaseUrl}/api/email-subscribers/new`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
