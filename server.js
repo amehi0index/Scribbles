@@ -1,39 +1,35 @@
+const express = require("express");
+const next = require('next');
+const cors = require("cors");
+const helmet = require("helmet");
+require('dotenv').config();
 
-const express = require("express")
-const app = express()
-const cors = require("cors")
-const path = require ('path')
-const helmet = require ('helmet')
-require('dotenv').config()
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
+const dev = process.env.NODE_ENV !== 'production';
+const app = express();
+const nextApp = next({ dev, dir: "./client" });
+const handle = nextApp.getRequestHandler();
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(helmet());
+app.use(express.json());
 
-// app.use(helmet.contentSecurityPolicy({
-//     directives: {
-//         defaultSrc: ["'none'"],
-//         imgSrc: ["'self'", "data:"]
-//     }
-// }))
-
-
-//DEFINE ROUTES
-app.use('/api/email-subscribers', require('./routes/subscribers'))
-
-app.get("/api/home", (req, res)=> {
-    res.json({message: "Hello from the backend. *wink *wink"})
+// Define API routes
+app.use('/api/email-subscribers', require('./routes/subscribers'));
+app.get("/api/home", (req, res) => {
+    res.json({ message: "Hello from the backend. *wink *wink" });
 });
 
-//SERVE STATIC ASSETS IN PRODUCTION?
-if(process.env.NODE_ENV === 'production'){
+// Prepare Next.js app
+nextApp.prepare().then(() => {
+    // Handle all other routes with Next.js
+    app.get('*', (req, res) => {
+        return handle(req, res);
+    });
 
-    app.use(express.static('client/build'))
-
-    app.get('*', (req, res) => {  
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html')) //
-    })
-}
+    app.listen(PORT, () => {
+        console.log(`Running on port ${PORT}`);
+    });
+});
 
 
-app.listen(PORT, ()=>{ console.log(`Running on port ${PORT}`)})
