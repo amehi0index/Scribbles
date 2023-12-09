@@ -78,7 +78,7 @@ const Base = () => {
                     <button dir="rtl" type="submit" className="text-white bg-slate-800 hover:bg-slate-700 duration-300 p-3 rounded-s-lg w-1/5">Join</button>
                 </form>
 
-                {showSuccess && <h1 className="text-purple-700 ml-16">{message}</h1>}
+                {showSuccess && <h1 className="text-orange-700 text-lg ml-16">{message}</h1>}
 
             </div>
 
