@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import Header from './Header'
 import Input from './Input'
 import Footer from './Footer'
+import SubscriptionForm from './SubscriptionForm';
 
 
 const Base = () => {
@@ -72,16 +73,8 @@ const Base = () => {
         <div className="h-screen w-screen flex lg:items-start items-center justify-between flex-col bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#23486F] via-[#192532] to-[#10131C] px-14 ">
             <div className="pt-24 w-full">
                 <Header />
-
-                <form onSubmit={handleSubmit} className="lg:w-1/2 sm:w-full flex flex-row py-8 lg:ml-16  ml-0 sm:mt-6">
-                    <Input onChange={onChange} name="email" placeholder="Email" value={email}/>
-                    <button dir="rtl" type="submit" className="text-white bg-slate-800 hover:bg-slate-700 duration-300 p-3 rounded-s-lg w-1/5">Join</button>
-                </form>
-
-                {showSuccess && <h1 className="text-orange-700 text-lg ml-16">{message}</h1>}
-
+                <SubscriptionForm />
             </div>
-
             <Footer/>
         </div>
         

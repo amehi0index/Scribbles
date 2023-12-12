@@ -8,9 +8,9 @@ const Footer = () => {
     <div className="flex flex-col lg:flex-row items-center lg:w-1/5 w-full py-2">
       <div className="py-2 text-gray-400 text-sm">FOLLOW US ON</div>
       <div className="py-2 flex justify-start lg:justify-center items-center">
-          <FaInstagram className="hover:text-slate-500 duration-400 mx-2"/>
-          <FaTwitter className="hover:text-slate-500 duration-400 mx-2"/>
-          <FaTiktok className="hover:text-slate-500 duration-400 mx-2"/>
+          <FaInstagram className="cursor-pointer hover:text-slate-500 duration-400 mx-2"/>
+          <FaTwitter className="cursor-pointer hover:text-slate-500 duration-400 mx-2"/>
+          <FaTiktok className="cursor-pointer hover:text-slate-500 duration-400 mx-2"/>
       </div>
     </div>
     <div className="text-gray-400 text-sm">
