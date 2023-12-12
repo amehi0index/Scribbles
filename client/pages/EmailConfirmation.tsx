@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
-const Verify = () => {
+const EmailConfirmation = () => {
     const [verificationStatus, setVerificationStatus] = useState('');
     const router = useRouter();
     const { token } = router.query; 
@@ -16,6 +16,7 @@ const Verify = () => {
                     }
                     const data = await response.json();
                     setVerificationStatus(data.message);
+                    // setVerificationStatus('Email verified successfully!');
                 } catch (error) {
                     setVerificationStatus('Verification failed. Invalid or expired token.');
                 }
@@ -32,4 +33,4 @@ const Verify = () => {
     );
 };
 
-export default Verify;
+export default EmailConfirmation;

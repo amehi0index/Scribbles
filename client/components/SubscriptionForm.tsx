@@ -1,7 +1,9 @@
 import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
+import { useRouter } from 'next/router'; 
 import Input from './Input'
 
 const SubscriptionForm = () => {
+  const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [subscriptionStatus, setSubscriptionStatus] = useState<string>('');
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
@@ -29,6 +31,8 @@ const SubscriptionForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await createNewEmailSubscriber(email);
+    // Redirect to verification page on success
+    router.push('/email-verification');
     setEmail('')
   };
 
