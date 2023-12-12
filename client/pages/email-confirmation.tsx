@@ -6,11 +6,17 @@ const EmailConfirmation = () => {
     const router = useRouter();
     const { token } = router.query; 
 
+    // Define the API base URL
+    const apiBaseUrl = process.env.NODE_ENV === 'development' 
+     ? 'http://localhost:5000' 
+     : 'https://scribbles-dac22275e7f8.herokuapp.com';
+
     useEffect(() => {
         const verifyEmail = async () => {
             if (token) {
                 try {
-                    const response = await fetch(`/api/email-subscribers/verify?token=${token}`);
+                    
+                    const response = await fetch(`${apiBaseUrl}/api/email-subscribers/verify?token=${token}`);
                     if (!response.ok) {
                         throw new Error('Verification failed');
                     }
