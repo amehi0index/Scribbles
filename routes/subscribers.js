@@ -71,6 +71,13 @@ router.post('/new',
         html: `<p>Please verify your email by clicking on the link: <a href="${baseUrl}/email-subscribers/verify?token=${verificationToken}">Verify Email</a></p>`
     };
 
+  //   const mailOptions = {
+  //     from: 'nibblersupreme@gmail.com', 
+  //     to: email, 
+  //     subject: 'Test Simple Link',
+  //     html: `<p>Test this simple link: <a href="https://scribbles-dac22275e7f8.herokuapp.com">MyDomain</a></p>`
+  // };
+
       transporter.sendMail(mailOptions, function(error, info){
           if (error) {
               console.log(error);
