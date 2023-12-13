@@ -50,7 +50,7 @@ router.post('/new',
 
       const baseUrl = process.env.NODE_ENV === 'production' 
       ? 'https://scribbles-dac22275e7f8.herokuapp.com' 
-      : 'http://localhost:5000';
+      : 'http://localhost:3000';
 
       // Send verification email
       const transporter = nodemailer.createTransport({
@@ -59,8 +59,8 @@ router.post('/new',
         port: 587,
         secure: false,
         auth: {
-          user: process.env.APP_USER, //Sender gmail acct 
-          pass: process.env.APP_PASSWORD, //App pword from gmail acct 
+          user: process.env.APP_USER, 
+          pass: process.env.APP_PASSWORD, 
         }
       });
 
@@ -68,7 +68,7 @@ router.post('/new',
         from: 'nibblersupreme@gmail.com', 
         to: email, 
         subject: 'Email Verification for Scribbles',
-        html: `<p>Please verify your email by clicking on the link: <a href="${baseUrl}/api/email-subscribers/verify?token=${verificationToken}">Verify Email</a></p>`
+        html: `<p>Please verify your email by clicking on the link: <a href="${baseUrl}/email-subscribers/verify?token=${verificationToken}">Verify Email</a></p>`
     };
 
       transporter.sendMail(mailOptions, function(error, info){
@@ -91,20 +91,22 @@ router.post('/new',
 //@desc     Verify new subscriber email
 //@access   Public
 router.get('/verify', async (req, res) => {
-    const { token } = req.query;
-    try {
-        // Update the email as verified if the token matches
-        let updateQuery = `UPDATE email_subs SET is_verified = true WHERE verification_token = $1`;
-        const result = await client.query(updateQuery, [token]);
-        if (result.rowCount > 0) {
-            res.send('Email verified successfully');
-        } else {
-            res.status(400).send('Invalid or expired token');
-        }
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Internal server error');
-    }
+  const { token } = req.query;
+  try {
+      let updateQuery = `UPDATE email_subs SET is_verified = true WHERE verification_token = $1`;
+      const result = await client.query(updateQuery, [token]);
+      console.log("Update result:", result); 
+      if (result.rowCount > 0) {
+          res.json({ message: 'Email verified successfully' }); 
+      } else {
+          res.status(400).json({ message: 'Invalid or expired token' }); 
+      }
+  } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ message: 'Internal server error' }); 
+  }
 });
+
+
 
 module.exports = router;

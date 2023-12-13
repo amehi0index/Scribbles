@@ -32,7 +32,7 @@ const SubscriptionForm = () => {
     e.preventDefault();
     await createNewEmailSubscriber(email);
     // Redirect to verification page on success
-    router.push('/email-verification');
+    router.push('/email-subscribers/verify');
     setEmail('')
   };
 
@@ -64,7 +64,7 @@ const SubscriptionForm = () => {
     <div>
       <form onSubmit={handleSubmit} className="lg:w-1/2 sm:w-full flex flex-row py-8 lg:ml-16  ml-0 sm:mt-6">
         <Input onChange={onChange} name="email" placeholder="Email" value={email}/>
-        <button dir="rtl" type="submit" className="text-white bg-slate-800 hover:bg-slate-700 duration-300 p-3 rounded-s-lg w-1/5">Join</button>
+        <button dir="rtl" type="submit" className="text-white bg-slate-700 hover:bg-slate-800 duration-300 p-3 rounded-s-lg w-1/5">Join</button>
       </form>
       {showSuccess && <h1 className="text-orange-700 text-lg ml-16">{subscriptionStatus}</h1>}
     </div>

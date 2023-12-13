@@ -27,8 +27,7 @@ const Base = () => {
                 <SubscriptionForm />
             </div>
             <Footer/>
-        </div>
-        
+        </div>  
     )
 }
 
