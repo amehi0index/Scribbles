@@ -46,7 +46,7 @@ const EmailVerification = () => {
 {/* <div className="flex flex-col items-center justify-center rounded w-1/2 px-4 pb-4"> */}
   <Image src={Logo} alt="Logo" className="mx-auto w-2/3"/>
   <Image src={Email} alt="Email" className="mx-auto w-1/3 h-auto my-4"/>
-  <p className="sm:text-md lg:text-xl mb-4">Thank you for subscribing. {verificationStatus}</p>
+  <p className="sm:text-md lg:text-xl mb-4">{verificationStatus}</p>
   <button onClick={navigateHome} className="text-white bg-slate-700 hover:bg-slate-800 duration-300 p-3 my-3 rounded w-1/5">Home</button>
 </div>
 </div>
