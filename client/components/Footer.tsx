@@ -1,6 +1,6 @@
 import React from 'react'
-import { FaTwitter, FaInstagram, FaTiktok } from 'react-icons/fa';
-import Image from 'next/image';
+import { FaTwitter, FaInstagram, FaTiktok } from 'react-icons/fa'
+import Image from 'next/image'
 
 const Footer = () => {
   return (

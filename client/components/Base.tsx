@@ -1,9 +1,9 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 
 import Header from './Header'
 import Input from './Input'
 import Footer from './Footer'
-import SubscriptionForm from './SubscriptionForm';
+import SubscriptionForm from './SubscriptionForm'
 
 
 const Base = () => {

@@ -1,7 +1,7 @@
 
-import React from 'react';
-import Image from 'next/image';
-import Logo from '../images/tomato.svg';
+import React from 'react'
+import Image from 'next/image'
+import Logo from '../images/tomato.svg'
 
 const Header: React.FC = () => {
   return (
@@ -15,4 +15,4 @@ const Header: React.FC = () => {
   )
 }
 
-export default Header;
+export default Header

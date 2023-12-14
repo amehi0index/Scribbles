@@ -1,56 +1,60 @@
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import Logo from '../../images/tomato.svg';
-import Email from '../../images/email-ow.svg';
-import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react'
 
-const EmailVerification = () => {
-    const [verificationStatus, setVerificationStatus] = useState('Verifying your email...');
+import { useRouter } from 'next/router'
+import EmailVerification from '@/components/EmailVerification'
+import EmailConfirmation from '@/components/EmailConfirmation'
 
-    const router = useRouter();
-    const { token } = router.query;
+
+const Verify = () => {
+    const [verificationStatus, setVerificationStatus] = useState('Verifying your email...')
+    const [isVerified, setIsVerified] = useState(false)
+
+    const router = useRouter()
+    const { token } = router.query
 
     const navigateHome = () => {
-      router.push('/'); 
-    };
+      router.push('/')
+    }
 
     useEffect(() => {
         if (!token) {
-            setVerificationStatus('Please click the verification link sent to your email.');
-            return;
+            setVerificationStatus('Please click the verification link sent to your email.')
+            return
         }
 
         const verifyEmailToken = async () => {
             try {
-                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'; 
-                const response = await fetch(`${apiUrl}/api/email-subscribers/verify?token=${token}`);
+                const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000' 
+                const response = await fetch(`${apiUrl}/api/email-subscribers/verify?token=${token}`)
 
                 if (!response.ok) {
-                    throw new Error('Email verification failed');
+                    throw new Error('Email verification failed')
                 }
-                const data = await response.json();
-                setVerificationStatus(data.message || 'Email verified successfully!');
+
+                const data = await response.json()
+                console.log(data)
+                setIsVerified(true)
+                setVerificationStatus(data.message)
             } catch (error) {
-                setVerificationStatus('Verification failed. Invalid or expired token.');
-                console.error(error);
+                setVerificationStatus('Verification failed. Invalid or expired token.')
+                console.error(error)
             }
-        };
+        }
 
-        verifyEmailToken();
-    }, [token]);
+        verifyEmailToken()
+    }, [token])
 
-    return (
-    
-<div className="h-screen w-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#23486F] via-[#192532] to-[#10131C] px-14">
-<div className="text-center text-white">
-{/* <div className="flex flex-col items-center justify-center rounded w-1/2 px-4 pb-4"> */}
-  <Image src={Logo} alt="Logo" className="mx-auto w-2/3"/>
-  <Image src={Email} alt="Email" className="mx-auto w-1/3 h-auto my-4"/>
-  <p className="sm:text-md lg:text-xl mb-4">{verificationStatus}</p>
-  <button onClick={navigateHome} className="text-white bg-slate-700 hover:bg-slate-800 duration-300 p-3 my-3 rounded w-1/5">Home</button>
-</div>
-</div>
-    );
-};
+    return (       
+        <div className="h-screen w-screen flex items-center justify-center bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#23486F] via-[#192532] to-[#10131C] px-14">
+            <div className=" flex flex-col items-center justify-center text-center text-white w-full">
+                { isVerified 
+                    ? (<EmailConfirmation /> )
+                    : (<EmailVerification  />)
+                }     
+                <p className="sm:text-md lg:text-xl mb-4">{ verificationStatus }</p>
+            </div>   
+        </div>
+    )
+}
 
-export default EmailVerification;
+export default Verify

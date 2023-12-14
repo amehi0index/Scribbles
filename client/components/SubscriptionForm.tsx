@@ -1,40 +1,40 @@
-import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react';
-import { useRouter } from 'next/router'; 
+import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react'
+import { useRouter } from 'next/router' 
 import Input from './Input'
 
 const SubscriptionForm = () => {
-  const router = useRouter();
-  const [email, setEmail] = useState<string>('');
-  const [subscriptionStatus, setSubscriptionStatus] = useState<string>('');
-  const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const router = useRouter()
+  const [email, setEmail] = useState<string>('')
+  const [subscriptionStatus, setSubscriptionStatus] = useState<string>('')
+  const [showSuccess, setShowSuccess] = useState<boolean>(false)
 
 // Define the API base URL
     const apiBaseUrl = process.env.NODE_ENV === 'development' 
      ? 'http://localhost:5000' 
-     : 'https://scribbles-dac22275e7f8.herokuapp.com';
+     : 'https://scribbles-dac22275e7f8.herokuapp.com'
 
     useEffect(() => {
-        let timer: NodeJS.Timeout;
+        let timer: NodeJS.Timeout
         if (showSuccess) {
             timer = setTimeout(() => {
-                setShowSuccess(false);
-            }, 5000); 
+                setShowSuccess(false)
+            }, 5000) 
         }
-        return () => clearTimeout(timer); 
-    }, [showSuccess]);
+        return () => clearTimeout(timer) 
+    }, [showSuccess])
 
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+    setEmail(e.target.value)
+  }
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    await createNewEmailSubscriber(email);
+    e.preventDefault()
+    await createNewEmailSubscriber(email)
     // Redirect to verification page on success
-    router.push('/email-subscribers/verify');
+    router.push('/email-subscribers/verify')
     setEmail('')
-  };
+  }
 
   const createNewEmailSubscriber = async (email: string): Promise<void> => {
     try {
@@ -44,20 +44,20 @@ const SubscriptionForm = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ email }),
-        });
+        })
 
         if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
+            throw new Error(`Error: ${response.status}`)
         }
 
-        const data = await response.json();
+        const data = await response.json()
         console.log('data from be', data)
-        setShowSuccess(true);
+        setShowSuccess(true)
         setSubscriptionStatus(data.message)
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error:', error)
     }
-};
+}
 
 
   return (
@@ -68,7 +68,7 @@ const SubscriptionForm = () => {
       </form>
       {showSuccess && <h1 className="text-orange-700 text-lg ml-16">{subscriptionStatus}</h1>}
     </div>
-  );
-};
+  )
+}
 
-export default SubscriptionForm;
+export default SubscriptionForm
