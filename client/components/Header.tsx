@@ -1,7 +1,7 @@
 
 import React from 'react'
 import Image from 'next/image'
-import Logo from '../images/tomato.svg'
+import Logo from '../images/tomato-stem.svg'
 
 const Header: React.FC = () => {
   return (

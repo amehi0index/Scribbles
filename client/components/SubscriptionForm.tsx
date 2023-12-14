@@ -31,8 +31,13 @@ const SubscriptionForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     await createNewEmailSubscriber(email)
-    // Redirect to verification page on success
-    router.push('/email-subscribers/verify')
+
+    setTimeout(() => {
+      // Redirect to verification page on success
+      router.push('/email-subscribers/verify');
+      setEmail('');
+    }, 3000);
+
     setEmail('')
   }
 
