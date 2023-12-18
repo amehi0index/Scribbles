@@ -2,27 +2,26 @@ import React, { ChangeEvent, FormEvent, useState, useEffect } from 'react'
 import { useRouter } from 'next/router' 
 import Input from './Input'
 
-const SubscriptionForm = () => {
+const SubscriptionForm: React.FC = () => {
   const router = useRouter()
   const [email, setEmail] = useState<string>('')
   const [subscriptionStatus, setSubscriptionStatus] = useState<string>('')
   const [showSuccess, setShowSuccess] = useState<boolean>(false)
 
-// Define the API base URL
-    const apiBaseUrl = process.env.NODE_ENV === 'development' 
-     ? 'http://localhost:5000' 
-     : 'https://scribbles-dac22275e7f8.herokuapp.com'
+  const apiBaseUrl = process.env.NODE_ENV === 'development' 
+    ? 'http://localhost:5000' 
+    : 'https://scribbles-dac22275e7f8.herokuapp.com'
 
-    useEffect(() => {
-        let timer: NodeJS.Timeout
-        if (showSuccess) {
-            timer = setTimeout(() => {
-                setShowSuccess(false)
-            }, 5000) 
-        }
-        return () => clearTimeout(timer) 
-    }, [showSuccess])
-
+  useEffect(() => {
+    let timer: NodeJS.Timeout
+    if (showSuccess) {
+      timer = setTimeout(() => {
+        setShowSuccess(false)
+      }, 5000) 
+    }
+    //Clear timer when component unmounts/effect runs again
+    return () => clearTimeout(timer) 
+  }, [showSuccess])
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
@@ -32,38 +31,37 @@ const SubscriptionForm = () => {
     e.preventDefault()
     await createNewEmailSubscriber(email)
 
+    // Redirect to verification page on success after 3 secs
     setTimeout(() => {
-      // Redirect to verification page on success
-      router.push('/email-subscribers/verify');
-      setEmail('');
-    }, 3000);
+      router.push('/email-subscribers/verify')
+      setEmail('')
+    }, 3000)
 
     setEmail('')
   }
 
   const createNewEmailSubscriber = async (email: string): Promise<void> => {
     try {
-        const response = await fetch(`${apiBaseUrl}/api/email-subscribers/new`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email }),
-        })
+      const response = await fetch(`${apiBaseUrl}/api/email-subscribers/new`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      })
 
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status}`)
-        }
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`)
+      }
 
-        const data = await response.json()
-        console.log('data from be', data)
-        setShowSuccess(true)
-        setSubscriptionStatus(data.message)
+      const data = await response.json()
+      console.log('Server data', data)
+      setShowSuccess(true)
+      setSubscriptionStatus(data.message)
     } catch (error) {
-        console.error('Error:', error)
+      console.error('Error:', error)
     }
 }
-
 
   return (
     <div>

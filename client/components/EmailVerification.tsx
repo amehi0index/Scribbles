@@ -6,7 +6,7 @@ import Email from '../images/email-ow.svg'
 
 
 interface EmailVerificationProps {
-    isVerified: boolean;
+    isVerified: boolean
 }
 
 const EmailVerification: React.FC<EmailVerificationProps> = ({ isVerified }) => {
@@ -15,20 +15,20 @@ const EmailVerification: React.FC<EmailVerificationProps> = ({ isVerified }) => 
 
     // useEffect(()=> {
     //     if(isVerified){
-    //         console.log("EmailVerification isVerified:", isVerified);
+    //         console.log("EmailVerification isVerified:", isVerified)
     //         // router.push('/')
     //     }
     // }, [isVerified, router])
 
-  return (
-    <div className="w-full flex flex-col items-center justify-center">
-        <div className="rounded w-1/2 px-4 pb-4">
-        <Image src={Logo} alt="Logo" className="mx-auto w-1/2"/>
-        <Image src={Email} alt="Email" className="mx-auto w-1/3 h-auto my-4"/>
-        {/* <button onClick={navigateHome} className="text-white bg-slate-700 hover:bg-slate-800 duration-300 p-3 my-3 rounded w-1/5">Home</button> */}
+    return (
+        <div className="w-full flex flex-col items-center justify-center">
+            <div className="rounded px-4 pb-4 w-full sm:w-3/4 xl:w-1/2 mx-auto">
+                <Image src={Logo} alt="Logo" className="mx-auto w-1/2 sm:w-2/3 md:w-1/2"/>
+                <Image src={Email} alt="Email" className="mx-auto w-1/3 sm:w-1/2 md:w-1/3 h-auto my-4"/>
+                {/* <button onClick={navigateHome} className="text-white bg-slate-700 hover:bg-slate-800 duration-300 p-3 my-3 rounded w-1/5 sm:w-1/4 md:w-1/6">Home</button> */}
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default EmailVerification

@@ -15,7 +15,7 @@ const Verify = () => {
             setVerificationStatus('Please click the verification link sent to your email.')
             return
         }
-
+        
         const verifyEmailToken = async () => {
             try {
                 const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000' 
@@ -35,7 +35,7 @@ const Verify = () => {
             }
         }
         verifyEmailToken()
-        // console.log("isVerified:", isVerified);
+        // console.log("isVerified:", isVerified)
     }, [token, isVerified])
 
     return (       
@@ -43,7 +43,7 @@ const Verify = () => {
             <div className=" flex flex-col items-center justify-center text-center text-white w-full">
                 { isVerified 
                     ? (<EmailConfirmation isVerified={isVerified} /> )
-                    : (<EmailVerification  isVerified={isVerified} />)
+                    : (<EmailVerification isVerified={isVerified} />)
                 }     
                 <p className="sm:text-md lg:text-xl mb-4">{ verificationStatus }</p>
             </div>   
